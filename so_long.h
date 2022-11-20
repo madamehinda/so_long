@@ -13,6 +13,23 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+# define LEFT_KEY       65361
+# define UP_KEY         65362
+# define RIGHT_KEY      65363
+# define DOWN_KEY       65364
+# define A_KEY          97
+# define W_KEY          119
+# define S_KEY          115
+# define D_KEY          100
+# define ESC            65307
+
+# define BACKGROUND "./sprites/background.xpm"
+# define COLLECT "./sprites/collect.xpm"
+# define EXIT "./sprites/exit.xpm"
+# define EXITS "./sprites/exits.xpm"
+# define PLAYER "./sprites/player.xpm"
+# define WALL "./sprites/wall.xpm"
+
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
@@ -23,12 +40,6 @@
 # include "Libft/ft_printf.h"
 # include "minilibx-linux/mlx.h"
 # include "minilibx-linux/mlx_int.h"
-
-typedef struct s_param
-{
-    int     x;
-    int     y;
-} t_param;
 
 typedef struct s_data
 {
@@ -65,6 +76,18 @@ void	ft_check_p(t_data *map_data, char *str);
 int     check_collectible(char *str);
 int     check_escape(t_data *map_data, char *str);
 void	ft_read_the_map(t_data *map_data,int fd);
+void    init_img(t_data *map);
+void    ft_set_items(t_data *map, int w, int h);
+void	ft_set_img(t_data *map);
+int	    exit_game(t_data *map);
+int	press_key(int key_code, t_data *map);
+void    move_up_w(t_data *map);
+void    move_down_s(t_data *map);
+void    move_left_a(t_data *map);
+void    move_right_d(t_data *map);
+
+
+
 
 
 #endif

@@ -39,7 +39,8 @@ void	check_p(t_data *map_data, char *str)
 		}
 		i++;
 	}
-	printf("%s\n", str);
+	//printf("%s\n", str);
+	//printf("%s\n", map_data->flat_map);
 }
 
 /*function to assess if there is a way to exit while collecting all the items*/
@@ -54,6 +55,7 @@ void	backtracking(int fd, t_data *map_data)
 	map_data->len = (int)ft_strlen(map_data->flat_map);
 	map_data->width += 1;
 	printf("%s\n\n", map_data->flat_map);
+	printf("%d\n", map_data->width);
 	check_p(map_data, str);
 	if (check_escape(map_data, str) == 1 && check_collectible(str) == 1)
 		ft_printf("valid path!\n");
@@ -125,11 +127,12 @@ int	ft_authorised_char(char *s)
 			k++;
 		i++;
 	}
-	//printf("j = %d\nk = %d\n", j,k);
 	if((j != 2) || (k < 1))
 		return(1);
+	printf("col:%d\n", k);
 	return (0);
 }
+
  /*check if the map is surrounded by walls*/
 int	ft_check_walls(t_data *map_data)
 {
@@ -159,7 +162,7 @@ int	ft_check_walls(t_data *map_data)
 void	ft_read(t_data *map_data,char **argv)
 {
 	int fd;
-	//char *line;
+	int	i;
 
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
@@ -169,27 +172,17 @@ void	ft_read(t_data *map_data,char **argv)
 		exit(-1);
 	}
 	ft_read_the_map(map_data, fd);
-	/*line = get_next_line(fd);
-	if(!line)
-	{
-		free(map_data);
-		exit(-1);
-	}
-	map_data->width=ft_strlen(line)- 1;
-	map_data->flat_map = NULL;
-	map_data->height = 0;
-	map_data->flat_map = ft_strjoin(map_data->flat_map,line);
-	while (line)
-	{
-		free(line);
-		line = get_next_line(fd);
-		map_data->height++;
-		if(line)
-			map_data->flat_map = ft_strjoin(map_data->flat_map,line);
-	}*/
 	check_after_malloc(fd,map_data);
 	backtracking(fd, map_data);
-	free(map_data->flat_map);
+	i = 0;
+	map_data->collectible = 0;
+	while (map_data->flat_map[i++])
+	{
+		if (map_data->flat_map[i] == 'C')
+		{
+			map_data->collectible++;
+		}
+	}
 	close(fd);
 }
 

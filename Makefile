@@ -26,6 +26,8 @@ CC 		= 	gcc
 SRC		= 	main.c \
 	 		parsing.c \
 			parsing2.c\
+			so_long.c \
+			moves.c
 			
 ####################################-OBJECTS-###################################
 

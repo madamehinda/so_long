@@ -34,38 +34,27 @@ the pointer and horizontal vertical size you've taken earlier, and the title of 
 
 /*int mlx_loop ( void *mlx_ptr );
 function that waits for the keyboard and mouse input from the floating window. */
-/*int	main(int argc ,char **argv)
+int	main(int argc ,char **argv)
 {
-	//void	*mlx_ptr;
-	//void	*win_ptr;
 	t_data *map_data;
-	int		a;
-	int		x;
-	int		y;
-
-	a = 0;
-	x = 64;
-	y = 64;
-	map_data->mlx = mlx_init();
-	map_data->win = mlx_new_window(map_data->mlx, map_data->width, map_data->height, "test");
-	mlx_loop(map_data->mlx);
-	if (a == 1)
-		mlx_destroy_window(map_data->mlx, map_data->win);
 
 	check_before_malloc(argc, argv);
 	map_data = malloc(sizeof(t_data));
 	ft_read(map_data,argv);
 	map_data->mlx = mlx_init();
-	map_data->win = mlx_new_window(map_data->mlx, 500, 500, "so_long");
-	map_data->img_player = mlx_xpm_file_to_image(map_data->mlx, "vagues.xmp", &x, &y);
-	mlx_put_image_to_window(map_data->mlx, map_data->win, map_data->img_player, 128, 0);
+	map_data->win = mlx_new_window(map_data->mlx, ((map_data->width -1) * 64), (map_data->height * 64), "so_long");
+	init_img(map_data);
+	ft_set_img(map_data);
+	map_data->move_counter = 0;
+	mlx_hook(map_data->win, 2, 1L << 0, &press_key, map_data);
+	mlx_hook(map_data->win, 17, 1L << 0, &exit_game, map_data);
 	mlx_loop(map_data->mlx);
-	if (a == 1)
-		mlx_destroy_window(map_data->mlx, map_data->win);
-	
 	free(map_data);
-}*/
-int main()
+}
+
+
+
+/*int main()
 {
 	void *mlx;
 	void *win;
@@ -97,4 +86,4 @@ int main()
 	//mlx_put_image_to_window(mlx, win, img7, 128, 64);
 	mlx_loop(mlx);
 	return (0);
-}
+}*/
