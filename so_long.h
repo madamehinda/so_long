@@ -6,7 +6,7 @@
 /*   By: hferjani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:11:39 by hferjani          #+#    #+#             */
-/*   Updated: 2022/11/18 11:54:10 by hferjani         ###   ########.fr       */
+/*   Updated: 2022/11/21 18:37:23 by hferjani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # define EXITS "./sprites/exits.xpm"
 # define PLAYER "./sprites/player.xpm"
 # define WALL "./sprites/wall.xpm"
+
+# define PIXELS         80
 
 # include <stdio.h>
 # include <unistd.h>
@@ -65,7 +67,6 @@ typedef struct s_data
 
 int     check_extension(char *file);
 int     ft_authorised_char(char *file);
-int     stlen_line(int fd,char *argv);
 void	ft_read(t_data *map_data,char **argv);
 int     ft_check_caracter(char c, char const *str);
 int     ft_check_walls(t_data *map_data);
@@ -85,8 +86,8 @@ void    move_up_w(t_data *map);
 void    move_down_s(t_data *map);
 void    move_left_a(t_data *map);
 void    move_right_d(t_data *map);
-
-
+void	check_p(t_data *m, char *str);
+void	backtracking(int fd, t_data *map_data);
 
 
 

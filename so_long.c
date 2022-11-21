@@ -6,7 +6,7 @@
 /*   By: hferjani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/18 11:21:09 by hferjani          #+#    #+#             */
-/*   Updated: 2022/11/18 17:09:19 by hferjani         ###   ########.fr       */
+/*   Updated: 2022/11/21 15:55:06 by hferjani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void    init_img(t_data *map)
 		(map->mlx, COLLECT, &img_width, &img_height);
 	map->img_exit = mlx_xpm_file_to_image
 		(map->mlx, EXIT, &img_width, &img_height);
-	//map->img_exits = mlx_xpm_file_to_image
-		//(map->mlx, EXITS, &img_width, &img_height);
 	map->img_wall = mlx_xpm_file_to_image
 		(map->mlx, WALL, &img_width, &img_height);
 	map->img_background = mlx_xpm_file_to_image
@@ -35,17 +33,15 @@ void    init_img(t_data *map)
 void    ft_set_items(t_data *map, int w, int h)
 {
     if (map->flat_map[h * map->width + w] == '1')
-        mlx_put_image_to_window(map->mlx, map->win, map->img_wall, w * 64, h * 64);
+        mlx_put_image_to_window(map->mlx, map->win, map->img_wall, w * 80, h * 80);
     else if (map->flat_map[h * map->width + w] == 'C')
-        mlx_put_image_to_window(map->mlx, map->win, map->img_collectible, w * 64, h * 64);
+        mlx_put_image_to_window(map->mlx, map->win, map->img_collectible, w * 80, h * 80);
     else if (map->flat_map[h * map->width + w] == 'P')
-        mlx_put_image_to_window(map->mlx, map->win, map->img_player, w * 64, h * 64);
-    //else if (map->flat_map[h * map->width + w] == 'E' && map->collectible == 0)
-        //mlx_put_image_to_window(map->mlx, map->win, map->img_exits, w * 64, h * 64);
+        mlx_put_image_to_window(map->mlx, map->win, map->img_player, w * 80, h * 80);
     else if (map->flat_map[h * map->width + w] == 'E')
-        mlx_put_image_to_window(map->mlx, map->win, map->img_exit, w * 64, h * 64);
+        mlx_put_image_to_window(map->mlx, map->win, map->img_exit, w * 80, h * 80);
     else
-        mlx_put_image_to_window(map->mlx, map->win, map->img_background, w * 64, h * 64);
+        mlx_put_image_to_window(map->mlx, map->win, map->img_background, w * 80, h * 80);
 }
 
 /*loop helping the function dispatching img - called after every move*/
@@ -75,7 +71,6 @@ int	exit_game(t_data *map)
     mlx_destroy_image(map->mlx, map->img_player);
     mlx_destroy_image(map->mlx, map->img_collectible);
     mlx_destroy_image(map->mlx, map->img_exit);
-    //mlx_destroy_image(map->mlx, map->img_exits);
     mlx_destroy_image(map->mlx, map->img_wall);
     mlx_destroy_image(map->mlx, map->img_background);
 	mlx_destroy_window(map->mlx, map->win);

@@ -6,7 +6,7 @@
 #    By: hferjani <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/03 14:18:35 by hferjani          #+#    #+#              #
-#    Updated: 2022/11/16 16:26:47 by hferjani         ###   ########.fr        #
+#    Updated: 2022/11/21 10:07:08 by hferjani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,14 +51,6 @@ LIBFT		= $(LIBFT_PATH)$(LIBFT_NAME)
 INC			=	-I ./so_long.h
 
 all:  $(NAME)
-
-#$(MLX):
-#@echo "Making MiniLibX..."
-#@make -sC $(MLX_PATH)
-
-#$(LIBFT):
-#@echo "Making libft..."
-#@make -sC $(LIBFT_PATH)
 
 ${NAME}: ${OBJS}
 	@echo "Making MiniLibX..."

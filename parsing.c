@@ -6,41 +6,41 @@
 /*   By: hferjani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 12:40:25 by hferjani          #+#    #+#             */
-/*   Updated: 2022/11/09 12:48:29 by hferjani         ###   ########.fr       */
+/*   Updated: 2022/11/21 18:36:38 by hferjani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 /*where on the map P could move "allegedly"*/
-void	check_p(t_data *map_data, char *str)
+void	check_p(t_data *m, char *str)
 {
-	int i;
-	int j;
-	
+	int	i;
+	int	j;
+
 	i = 0;
-	while (map_data->flat_map[i] != '\0')
+	while (m->flat_map[i] != '\0')
 	{
 		j = 0;
-		while (map_data->flat_map[j] != '\0')
+		while (m->flat_map[j] != '\0')
 		{
 			if (str[j] == 'P')
 			{
 				if (str[j + 1] != '1' && str[j + 1] != 'E' && str[j + 1] != 'P')
 					str[j + 1] = 'P';
-				if (str[j - 1] != '1' && str[j - 1] != 'E' && str[j - 1] != 'P' )
+				if (str[j - 1] != '1' && str[j - 1] != 'E' && str[j - 1] != 'P')
 					str[j - 1] = 'P';
-				if (str[j - map_data->width] != '1' && str[j - map_data->width] != 'E' && str[j - map_data->width] != 'P')
-					str[j - map_data->width] = 'P';
-				if (str[j + map_data->width] != '1' && str[j + map_data->width] != 'E' && str[j + map_data->width] != 'P' )
-					str[j + map_data->width] = 'P';
+				if (str[j - m->width] != '1' && str[j - m->width]
+					!= 'E' && str[j - m->width] != 'P')
+					str[j - m->width] = 'P';
+				if (str[j + m->width] != '1' && str[j + m->width] 
+					!= 'E' && str[j + m->width] != 'P')
+					str[j + m->width] = 'P';
 			}	
 			j++;
 		}
 		i++;
 	}
-	//printf("%s\n", str);
-	//printf("%s\n", map_data->flat_map);
 }
 
 /*function to assess if there is a way to exit while collecting all the items*/
@@ -54,8 +54,6 @@ void	backtracking(int fd, t_data *map_data)
 			return;
 	map_data->len = (int)ft_strlen(map_data->flat_map);
 	map_data->width += 1;
-	printf("%s\n\n", map_data->flat_map);
-	printf("%d\n", map_data->width);
 	check_p(map_data, str);
 	if (check_escape(map_data, str) == 1 && check_collectible(str) == 1)
 		ft_printf("valid path!\n");
@@ -66,45 +64,6 @@ void	backtracking(int fd, t_data *map_data)
 		ft_free(fd, map_data);
 	}
 	free(str);
-}
-
-/*if returns 1 then we could have a valid path*/
-int	check_collectible(char *str)
-{
-	int i;
-
-	i=0;
-	while (str[i])
-	{
-		if (str[i] == 'C')
-			return(0);
-		i++;
-	}
-	return (1);
-}
-
-/*if returns 1 then we could have a valid path*/
-int	check_escape(t_data *map_data, char *str)
-{
-	int	i;
-
-	i=0;
-	while (map_data->flat_map[i])
-	{
-		if (map_data->flat_map[i] == 'E')
-		{
-			if (str[i + 1] == 'P')
-				return (1);
-			if (str[i - 1] == 'P')
-				return (1);
-			if (str[i - map_data->width] == 'P')
-				return (1);
-			if (str[i + map_data->width] =='P')
-				return (1);
-		}
-		i++;
-	}
-	return (0);
 }
 
 /*check if the map is filled properly*/
@@ -129,34 +88,7 @@ int	ft_authorised_char(char *s)
 	}
 	if((j != 2) || (k < 1))
 		return(1);
-	printf("col:%d\n", k);
 	return (0);
-}
-
- /*check if the map is surrounded by walls*/
-int	ft_check_walls(t_data *map_data)
-{
-	int i;
-
-	i = 0;
-	map_data->len = (int)ft_strlen(map_data->flat_map);
-	while (i < map_data->len)
-	{
-		if (i < map_data->width || i > (map_data->len - map_data->width))
-		{
-			if (map_data->flat_map[i] != '1')
-			{
-				return (1);
-			}
-		}
-		if (map_data->flat_map[i] == '\n' && (map_data->flat_map[i - 1] != '1' || map_data->flat_map[i + 1] != '1'))
-		{
-				return(1);
-		}
-		i++;
-	}
-	return (0);
-	
 }
 
 void	ft_read(t_data *map_data,char **argv)
