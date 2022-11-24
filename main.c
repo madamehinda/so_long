@@ -6,7 +6,7 @@
 /*   By: hferjani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:09:24 by hferjani          #+#    #+#             */
-/*   Updated: 2022/11/21 16:10:59 by hferjani         ###   ########.fr       */
+/*   Updated: 2022/11/24 16:16:08 by hferjani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,31 @@ void	check_before_malloc(int argc, char **argv)
 		ft_printf("error: not the right extension\n");
 		exit(-1);
 	}
+}
+
+int	img_error(t_data *m)
+{
+	if (check_sprites(m) == 1)
+	{
+		if (m->img_wall)
+			mlx_destroy_image(m->mlx, m->img_wall);
+		if (m->img_player)
+			mlx_destroy_image(m->mlx, m->img_player);
+		if (m->img_collectible)
+			mlx_destroy_image(m->mlx, m->img_collectible);
+		if (m->img_exit)
+			mlx_destroy_image(m->mlx, m->img_exit);
+		if (m->img_background)
+			mlx_destroy_image(m->mlx, m->img_background);
+		mlx_destroy_window(m->mlx, m->win);
+		mlx_destroy_display(m->mlx);
+		free(m->mlx);
+		free(m->flat_map);
+		free(m);
+		ft_printf("Something is fishy, check your sprites.");
+		exit (0);
+	}
+	return (0);
 }
 
 void	ft_free(int fd, t_data *map_data)
@@ -57,6 +82,7 @@ int	main(int argc, char **argv)
 	map_data->win = mlx_new_window(map_data->mlx, ((map_data->width -1) * 80),
 			(map_data->height * 80), "so_long");
 	init_img(map_data);
+	img_error(map_data);
 	ft_set_img(map_data);
 	map_data->move_counter = 0;
 	mlx_hook(map_data->win, 2, 1L << 0, &press_key, map_data);

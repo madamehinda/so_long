@@ -6,7 +6,7 @@
 /*   By: hferjani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 12:40:25 by hferjani          #+#    #+#             */
-/*   Updated: 2022/11/21 18:36:38 by hferjani         ###   ########.fr       */
+/*   Updated: 2022/11/24 10:18:40 by hferjani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	check_p(t_data *m, char *str)
 	int	i;
 	int	j;
 
-	i = 0;
-	while (m->flat_map[i] != '\0')
+	i = -1;
+	while (m->flat_map[++i] != '\0')
 	{
-		j = 0;
-		while (m->flat_map[j] != '\0')
+		j = -1;
+		while (m->flat_map[++j] != '\0')
 		{
 			if (str[j] == 'P')
 			{
@@ -33,25 +33,23 @@ void	check_p(t_data *m, char *str)
 				if (str[j - m->width] != '1' && str[j - m->width]
 					!= 'E' && str[j - m->width] != 'P')
 					str[j - m->width] = 'P';
-				if (str[j + m->width] != '1' && str[j + m->width] 
+				if (str[j + m->width] != '1' && str[j + m->width]
 					!= 'E' && str[j + m->width] != 'P')
 					str[j + m->width] = 'P';
 			}	
-			j++;
 		}
-		i++;
 	}
 }
 
 /*function to assess if there is a way to exit while collecting all the items*/
 void	backtracking(int fd, t_data *map_data)
 {
-	char *str;
+	char	*str;
 
-	str=NULL;
-	str=ft_strjoin(str, map_data->flat_map);
-		if(!str)
-			return;
+	str = NULL;
+	str = ft_strjoin(str, map_data->flat_map);
+	if (!str)
+		return ;
 	map_data->len = (int)ft_strlen(map_data->flat_map);
 	map_data->width += 1;
 	check_p(map_data, str);
@@ -72,28 +70,29 @@ int	ft_authorised_char(char *s)
 	int	i;
 	int	j;
 	int	k;
-	
+
 	i = 0;
 	j = 0;
 	k = 0;
-	while(s[i])
+	while (s[i])
 	{
-		if((s[i] != '0') && (s[i] != '1') && (s[i] != 'P') && (s[i] != 'C') && (s[i] != 'E') && (s[i] != '\n'))
-			return (1);	
-		if((s[i] == 'E') || (s[i] == 'P'))
+		if ((s[i] != '0') && (s[i] != '1') && (s[i] != 'P') && (s[i] != 'C')
+			&& (s[i] != 'E') && (s[i] != '\n'))
+			return (1);
+		if ((s[i] == 'E') || (s[i] == 'P'))
 			j++;
-		if((s[i] == 'C'))
+		if ((s[i] == 'C'))
 			k++;
 		i++;
 	}
-	if((j != 2) || (k < 1))
-		return(1);
+	if ((j != 2) || (k < 1))
+		return (1);
 	return (0);
 }
 
-void	ft_read(t_data *map_data,char **argv)
+void	ft_read(t_data *map_data, char **argv)
 {
-	int fd;
+	int	fd;
 	int	i;
 
 	fd = open(argv[1], O_RDONLY);
@@ -104,7 +103,7 @@ void	ft_read(t_data *map_data,char **argv)
 		exit(-1);
 	}
 	ft_read_the_map(map_data, fd);
-	check_after_malloc(fd,map_data);
+	check_after_malloc(fd, map_data);
 	backtracking(fd, map_data);
 	i = 0;
 	map_data->collectible = 0;
@@ -118,27 +117,27 @@ void	ft_read(t_data *map_data,char **argv)
 	close(fd);
 }
 
-void	ft_read_the_map(t_data *map_data,int fd)
+void	ft_read_the_map(t_data *map_data, int fd)
 {
-	char *line;
+	char	*line;
 
 	line = get_next_line(fd);
-	if(!line)
+	if (!line)
 	{
 		ft_printf("there is nothing to display\n");
 		free(map_data);
 		exit(-1);
 	}
-	map_data->width=ft_strlen(line)- 1;
+	map_data->width = ft_strlen(line)- 1;
 	map_data->flat_map = NULL;
 	map_data->height = 0;
-	map_data->flat_map = ft_strjoin(map_data->flat_map,line);
+	map_data->flat_map = ft_strjoin(map_data->flat_map, line);
 	while (line)
 	{
 		free(line);
 		line = get_next_line(fd);
 		map_data->height++;
-		if(line)
-			map_data->flat_map = ft_strjoin(map_data->flat_map,line);
+		if (line)
+			map_data->flat_map = ft_strjoin(map_data->flat_map, line);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: hferjani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/24 15:11:39 by hferjani          #+#    #+#             */
-/*   Updated: 2022/11/21 18:37:23 by hferjani         ###   ########.fr       */
+/*   Updated: 2022/11/24 15:27:05 by hferjani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,50 +45,49 @@
 
 typedef struct s_data
 {
-    char    *flat_map;
-    int     height;
-    int     width;
-    int     len;
-    int     rectangle;
-    int     collectible;
-    int     col_counter;
-    int     exit;
-    int     player;
-    int     move_counter;
-    void    *mlx;
-    void    *win;
-    void    *img_player;
-    void    *img_collectible;
-    void    *img_exit;
-    void    *img_wall;
-    void    *img_background;
-} t_data;
+	char	*flat_map;
+	int		height;
+	int		width;
+	int		len;
+	int		rectangle;
+	int		collectible;
+	int		col_counter;
+	int		exit;
+	int		player;
+	int		move_counter;
+	void	*mlx;
+	void	*win;
+	void	*img_player;
+	void	*img_collectible;
+	void	*img_exit;
+	void	*img_wall;
+	void	*img_background;
+}	t_data;
 
-
-int     check_extension(char *file);
-int     ft_authorised_char(char *file);
-void	ft_read(t_data *map_data,char **argv);
-int     ft_check_caracter(char c, char const *str);
-int     ft_check_walls(t_data *map_data);
+int		check_extension(char *file);
+int		ft_authorised_char(char *file);
+void	ft_read(t_data *map_data, char **argv);
+int		ft_check_caracter(char c, char const *str);
+int		ft_check_walls(t_data *map_data);
 void	check_before_malloc(int argc, char **argv);
 void	check_after_malloc(int fd, t_data *map_data);
-void    ft_free(int fd, t_data *map_data);
+void	ft_free(int fd, t_data *map_data);
 void	ft_check_p(t_data *map_data, char *str);
-int     check_collectible(char *str);
-int     check_escape(t_data *map_data, char *str);
-void	ft_read_the_map(t_data *map_data,int fd);
-void    init_img(t_data *map);
-void    ft_set_items(t_data *map, int w, int h);
+int		check_collectible(char *str);
+int		check_escape(t_data *map_data, char *str);
+void	ft_read_the_map(t_data *map_data, int fd);
+void	init_img(t_data *map);
+void	ft_set_items(t_data *map, int w, int h);
 void	ft_set_img(t_data *map);
-int	    exit_game(t_data *map);
-int	press_key(int key_code, t_data *map);
-void    move_up_w(t_data *map);
-void    move_down_s(t_data *map);
-void    move_left_a(t_data *map);
-void    move_right_d(t_data *map);
+int		exit_game(t_data *map);
+int		press_key(int key_code, t_data *map);
+void	move_up_w(t_data *map);
+void	move_down_s(t_data *map);
+void	move_left_a(t_data *map);
+void	move_right_d(t_data *map);
 void	check_p(t_data *m, char *str);
 void	backtracking(int fd, t_data *map_data);
-
-
+int		check_sprites(t_data *map);
+int		img_error(t_data *m);
 
 #endif
