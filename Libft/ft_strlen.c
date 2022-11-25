@@ -6,7 +6,7 @@
 /*   By: hferjani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 13:01:42 by hferjani          #+#    #+#             */
-/*   Updated: 2022/10/29 11:25:26 by hferjani         ###   ########.fr       */
+/*   Updated: 2022/11/24 12:15:06 by hferjani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ size_t	ft_strlen(const char *str)
 
 	i = 0;
 	if (!str)
-		return(0);
+		return (0);
 	while (str[i] != '\0')
 	{
 		i++;

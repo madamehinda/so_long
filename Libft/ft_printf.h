@@ -6,7 +6,7 @@
 /*   By: hferjani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 23:32:34 by hferjani          #+#    #+#             */
-/*   Updated: 2022/06/07 17:04:43 by hferjani         ###   ########.fr       */
+/*   Updated: 2022/11/24 12:14:39 by hferjani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <stdio.h>
 # include <stdarg.h>
 # include <unistd.h>
-
 
 int		ft_printf(const char *str, ...);
 size_t	ft_type_parametre(va_list arg, const char format);

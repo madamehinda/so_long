@@ -6,7 +6,7 @@
 /*   By: hferjani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 11:55:49 by hferjani          #+#    #+#             */
-/*   Updated: 2022/11/24 16:24:20 by hferjani         ###   ########.fr       */
+/*   Updated: 2022/11/25 09:56:46 by hferjani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	check_after_malloc(int fd, t_data *map_data)
 {
-	int len;
+	int	len;
 
 	len = (int)ft_strlen(map_data->flat_map);
 	if (len != ((map_data->width * map_data->height) + (map_data->height -1)))
